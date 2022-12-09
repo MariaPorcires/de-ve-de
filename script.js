@@ -23,7 +23,7 @@
  const inputYear = document.querySelector('#year');
  const buttonMovie = document.querySelector('#seek-movie');
 
- // const -- visa filmerna
+ const movieList = document.querySelector('#movieList');
 
  async function saveToDataBase(titleItem, genreItem, yearItem) {
     try {
@@ -37,6 +37,29 @@
     }
  }
 
+ async function removeFromDataBase(movieId) {
+    try {
+        await deleteDoc(doc(db, 'devede', movieId));
+
+
+    } catch (error) {
+        
+    }
+ }
+
+function addClickEvent() {
+    const movieElems = document.querySelectorAll('li');
+
+    movieElems.forEach((movieList) => {
+        movieList.addEventListener('click', (event) => {
+            const movieId = event.target.getAttribute('data-movie-id');
+
+            removeFromDataBase(movieId)
+        })
+    })
+}
+
+
  buttonMovie.addEventListener('click', () => {
    console.log('click')
    const titleItem = inputTitle.value;
@@ -45,4 +68,25 @@
    console.log(titleItem)
 
    saveToDataBase(titleItem, genreItem, yearItem)
+
  })
+
+ async function showMovies() {
+    const movies = await getDocs(collection(db, 'devede'));
+    
+
+    movies.forEach((movie) => {
+        const elem = `
+        <li data-movie-id="${movie.id}"><u>Title:</u> ${movie.data().title}<br>
+        <u>Genre:</u> ${movie.data().genre}<br>
+        <u>Year:</u> ${movie.data().year}
+        </i>
+        `
+
+        movieList.insertAdjacentHTML('beforeend', elem)
+    })
+
+    addClickEvent();
+ }
+
+ showMovies();
