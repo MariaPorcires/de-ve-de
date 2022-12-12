@@ -4,22 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap" rel="stylesheet">
     <title>DE-VE-DE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section>
-        <input type="text" placeholder="title" id="title">
-        <input type="text" placeholder="genre" id="genre">
-        <input type="text" placeholder="year" id="year">
-        <button id="seek-movie">Movie</button>
+   
+    <main>
+        <header>
+            <h1>
+                ~ De -Ve -De ~
+            </h1>
+        </header>
 
-    </section>
-    <section>
-        <ul id="movieList"></ul>
-    </section>
+        <article>
+            <br>
+        <input type="text" placeholder="title" id="title"><br>
+        <input type="text" placeholder="genre" id="genre"><br>
+        <input type="text" placeholder="year" id="year"><br>
+        <button id="add">Add movie</button><br><br><br>
 
+        <input type="text" placeholder="search title" id="search-movie"><br>
+        <button id="search">Search</button>
+        <br><br><br><br>
 
+        </article>
+
+        <section>
+            <h3>Movies</h3>
+            <ul id="movieList"><br></ul>
+        </section>
+
+    </main>
+    
+   
+
+  
     <script type="module" src="script.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
- import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+ import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,8 +21,9 @@
  const inputTitle = document.querySelector('#title');
  const inputGenre = document.querySelector('#genre');
  const inputYear = document.querySelector('#year');
- const buttonMovie = document.querySelector('#seek-movie');
+ const buttonMovie = document.querySelector('#add');
 
+ const inputSearch = document.querySelector('#search-movie');
  const movieList = document.querySelector('#movieList');
 
  async function saveToDataBase(titleItem, genreItem, yearItem) {
@@ -47,18 +48,20 @@
     }
  }
 
-function addClickEvent() {
-    const movieElems = document.querySelectorAll('li');
+ function removeClick() {
+    const deleteBtn = document.querySelectorAll('#deleteBtn')
 
-    movieElems.forEach((movieList) => {
-        movieList.addEventListener('click', (event) => {
-            const movieId = event.target.getAttribute('data-movie-id');
-
-            removeFromDataBase(movieId)
-        })
-    })
-}
-
+    deleteBtn.forEach((remove) => {
+       remove.addEventListener('click', async (event) => {
+         
+               const movieId = event.target.getAttribute('data-movie-id');
+               
+               await removeFromDataBase(movieId)
+               showMovies()  
+       })
+   })
+  
+ }
 
  buttonMovie.addEventListener('click', () => {
    console.log('click')
@@ -68,25 +71,67 @@ function addClickEvent() {
    console.log(titleItem)
 
    saveToDataBase(titleItem, genreItem, yearItem)
+   inputTitle.value = "";
+   inputGenre.value = "";
+   inputYear.value = "";
+   showMovies()
 
  })
 
+async function checkMovieTitle() {
+    const searchTitle = inputSearch.value;
+    console.log(searchTitle)
+    try {
+        const titleQuery = query(collection(db, 'devede'), where('title', '==', searchTitle));
+        const result = await getDocs(titleQuery);
+        let resultMovie;
+        
+        result.forEach((movie) => {
+            resultMovie = title;
+            const elem=`
+            <br><li data-movie-id="${movie.id}"> ${movie.data().title} 
+            / ${movie.data().genre} 
+            / ${movie.data().year}
+            
+            </li>`
+
+            movieList.insertAdjacentHTML('beforeend', elem)
+
+        });
+
+    } catch (error) {
+        
+    }
+}
+
+const searchButton = document.querySelector('#search');
+searchButton.addEventListener('click', async () => {        
+    checkMovieTitle()
+    inputSearch.value = "";
+})
+
  async function showMovies() {
+ 
     const movies = await getDocs(collection(db, 'devede'));
-    
+    movieList.innerHTML ="";
 
     movies.forEach((movie) => {
         const elem = `
-        <li data-movie-id="${movie.id}"><u>Title:</u> ${movie.data().title}<br>
-        <u>Genre:</u> ${movie.data().genre}<br>
-        <u>Year:</u> ${movie.data().year}
-        </i>
+        <br>
+        <li "${movie.id}"> ${movie.data().title} 
+        / ${movie.data().genre} 
+        / ${movie.data().year}<br>
+        <button data-movie-id=${movie.id} id="deleteBtn">Remove</button>
+        <br>
+        </li>
         `
 
         movieList.insertAdjacentHTML('beforeend', elem)
     })
 
-    addClickEvent();
+
+    removeClick()
  }
 
  showMovies();
+
