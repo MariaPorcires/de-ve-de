@@ -33,6 +33,7 @@ main {
 
 header {
     padding: 1rem;
+    border-bottom: 2px solid black;
     grid-column: 1 / 4;
     justify-content: center;
     align-items: center;
@@ -94,6 +95,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(246, 245, 245,.5);
 }
 
 #deleteBtn {
