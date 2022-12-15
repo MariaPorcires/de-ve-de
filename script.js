@@ -1,3 +1,5 @@
+// Hämtar HTML-element
+
 import { saveToDataBase, checkMovieTitle, showMovies } from "./modules/movies.js";
 
 /*
@@ -79,7 +81,7 @@ import { saveToDataBase, checkMovieTitle, showMovies } from "./modules/movies.js
    inputYear.value = "";
 
    showMovies()
-   
+
  })
 
 /*async function checkMovieTitle() {

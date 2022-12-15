@@ -1,3 +1,8 @@
+// Här har jag lagt koden för alla funktioner som sparar, hämtar, tar bort och söker från databasen, 
+// där databasen och webbsidan kopplas till varandra. 
+// Vill man lägga till en till funktion där man tex uppdaterar ett dokument i databasen kan man lägga till den här.
+
+
 import { db, collection, addDoc, getDocs, 
     query, where, doc, deleteDoc } from './firebase.js';
 
@@ -69,7 +74,12 @@ import { db, collection, addDoc, getDocs,
             const titleQuery = query(collection(db, 'devede'), where('title', '==', searchTitle));
             const result = await getDocs(titleQuery);
             let resultMovie;
-            
+            if (resultMovie) {
+                
+            } else {
+                console.log('error')
+            }
+
             result.forEach((movie) => {
                 resultMovie = title;
                 const elem=`
@@ -80,8 +90,10 @@ import { db, collection, addDoc, getDocs,
                 `
             
                 movieList.insertAdjacentHTML('beforeend', elem)
+            
             });
-    
+        
+        
         } catch (error) {
             
         }
