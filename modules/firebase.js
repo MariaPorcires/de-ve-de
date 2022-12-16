@@ -1,4 +1,5 @@
  // Här har jag lagt koden för firebasekonfigurationen. 
+ // Detta behöver jag sedan inte använda mig av då jag exporterar db, collection osv.
  
  
  // Import the functions you need from the SDKs you need

@@ -1,5 +1,5 @@
 // Här har jag lagt koden för alla funktioner som sparar, hämtar, tar bort och söker från databasen, 
-// där databasen och webbsidan kopplas till varandra. 
+// där databasen och webbsidan kopplas till varandra. Man kan lätt följa vad som ska hända på sidan.
 // Vill man lägga till en till funktion där man tex uppdaterar ett dokument i databasen kan man lägga till den här.
 
 
@@ -77,7 +77,7 @@ import { db, collection, addDoc, getDocs,
             if (resultMovie) {
                 
             } else {
-                console.log('error')
+                movieList.innerHTML = `Sorry, your movie was not found.`
             }
 
             result.forEach((movie) => {
