@@ -74,12 +74,7 @@ import { db, collection, addDoc, getDocs,
             const titleQuery = query(collection(db, 'devede'), where('title', '==', searchTitle));
             const result = await getDocs(titleQuery);
             let resultMovie;
-            if (resultMovie) {
-                
-            } else {
-                movieList.innerHTML = `Sorry, your movie was not found.`
-            }
-
+            
             result.forEach((movie) => {
                 resultMovie = title;
                 const elem=`
